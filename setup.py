@@ -8,10 +8,11 @@ with open('README.md', encoding='utf-8') as rdme:
 
 _mydir = os.path.abspath(os.path.dirname(sys.argv[0]))
 _requires = [ r for r in open('requirements.txt', "r").read().split('\n') if len(r)>1 ]
+_version = open("ExpMeta/_version.py", "r").read().split("=")[-1].strip("\"")
 
 setuptools.setup(
 	name='ExpMeta',
-	version="0.0.1",
+	version=_version,
 	description="Python classes for working with measurement metadata for scientific experiments",
 	long_description=_readme+"\n\n",
 	long_description_content_type="text/markdown",
