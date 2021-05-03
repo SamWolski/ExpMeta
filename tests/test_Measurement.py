@@ -1,6 +1,7 @@
 import pytest
 
 import datetime
+import os
 
 import ExpMeta
 
@@ -118,5 +119,5 @@ def test_attr_directory(sample_meas_1):
 
 
 def test_attr_path(sample_meas_1):
-	assert sample_meas_1.path == "assets/exp_db/2021/04/Data_0424/X1_0024.hdf5"
+	assert sample_meas_1.path == os.path.normpath("assets/exp_db/2021/04/Data_0424/X1_0024.hdf5")
 

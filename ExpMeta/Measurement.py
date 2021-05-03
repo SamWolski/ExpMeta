@@ -123,5 +123,5 @@ class Measurement:
 		Currently Labber-style but this will be more customizable in the 
 		future.
 		"""
-		return os.path.join(self.directory, self.name+".hdf5")
+		return os.path.normpath(os.path.join(self.directory, self.name+".hdf5"))
 
