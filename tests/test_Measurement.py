@@ -3,23 +3,23 @@ import pytest
 import datetime
 import os
 
-import ExpMeta
+import expmeta
 
 ##############################################################################
 
 @pytest.fixture
 def sample_meas_1():
-	meas_obj = ExpMeta.Measurement(db_dir="assets/exp_db/", experiment="X1", snum=24, sort_date=datetime.date(year=2021,month=4,day=24))
+	meas_obj = expmeta.Measurement(db_dir="assets/exp_db/", experiment="X1", snum=24, sort_date=datetime.date(year=2021,month=4,day=24))
 	return meas_obj
 
 @pytest.fixture
 def sample_meas_2():
-	meas_obj = ExpMeta.Measurement(db_dir="", experiment="X1", snum=32, sort_date=datetime.date(year=2021,month=4,day=24))
+	meas_obj = expmeta.Measurement(db_dir="", experiment="X1", snum=32, sort_date=datetime.date(year=2021,month=4,day=24))
 	return meas_obj
 
 @pytest.fixture
 def sample_meas_3():
-	meas_obj = ExpMeta.Measurement(db_dir="", experiment="X2", snum=24, sort_date=datetime.date(year=2021,month=4,day=24))
+	meas_obj = expmeta.Measurement(db_dir="", experiment="X2", snum=24, sort_date=datetime.date(year=2021,month=4,day=24))
 	return meas_obj
 
 

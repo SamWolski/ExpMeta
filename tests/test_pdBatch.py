@@ -2,7 +2,7 @@ import pytest
 
 import datetime
 
-import ExpMeta
+import expmeta
 
 ##############################################################################
 
@@ -10,12 +10,12 @@ EXP_DB_PATH = "assets/exp_db/"
 
 @pytest.fixture
 def sample_meas_1():
-	meas_obj = ExpMeta.Measurement(db_dir=EXP_DB_PATH, experiment="X1", snum=24, sort_date=datetime.date(year=2021,month=4,day=24))
+	meas_obj = expmeta.Measurement(db_dir=EXP_DB_PATH, experiment="X1", snum=24, sort_date=datetime.date(year=2021,month=4,day=24))
 	return meas_obj
 
 @pytest.fixture
 def batch_vary_snums():
-	meas_batch = ExpMeta.pdBatch(db_dir=EXP_DB_PATH,
+	meas_batch = expmeta.pdBatch(db_dir=EXP_DB_PATH,
 								 experiment="X1",
 								 snums=range(20,28+1),
 								 sort_date=datetime.date(
@@ -24,7 +24,7 @@ def batch_vary_snums():
 
 @pytest.fixture
 def batch_vary_snums_subset():
-	meas_batch = ExpMeta.pdBatch(db_dir=EXP_DB_PATH,
+	meas_batch = expmeta.pdBatch(db_dir=EXP_DB_PATH,
 								 experiment="X1",
 								 snums=range(22,25+1),
 								 sort_date=datetime.date(
@@ -33,7 +33,7 @@ def batch_vary_snums_subset():
 
 @pytest.fixture
 def batch_vary_snums_2():
-	meas_batch = ExpMeta.pdBatch(db_dir=EXP_DB_PATH,
+	meas_batch = expmeta.pdBatch(db_dir=EXP_DB_PATH,
 								 experiment="X2",
 								 snums=range(1,4+1),
 								 sort_date=datetime.date(
@@ -111,7 +111,7 @@ def test_list_construction(batch_vary_experiments):
 	sort_date_list = [datetime.date(year=2021,month=4,day=24)]*9 \
 					+ [datetime.date(year=2021,month=5,day=3)]*4
 	## Construct a pdBatch object out of all of these
-	compound_batch = ExpMeta.pdBatch(db_dir=EXP_DB_PATH,
+	compound_batch = expmeta.pdBatch(db_dir=EXP_DB_PATH,
 									 experiment=experiment_list,
 									 snums=snums_list,
 									 sort_date=sort_date_list)
