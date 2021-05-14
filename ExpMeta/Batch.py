@@ -190,11 +190,42 @@ class pdBatch:
 	######################################
 
 	def groupby(self, columns, **kwargs):
-		"""Iterator yielding pdBatch objects corresponding to groupbys of the underlying DataFrame along columns `columns`.
+		"""List of (values, DataFrame) tuples corresponding to groupbys of the underlying DataFrame along columns `columns`.
 		"""
-		## TODO this currently doesn't play nicely with tqdm!
-		for values, group_df in self.df.groupby(columns, **kwargs):
-			## Create new pdBatch object from Dataframe
-			group_batch = self.batch_from_dfsub(group_df)
+		return BatchGroupBy(self, columns, **kwargs)
+
+
+##############################################################################
+
+class BatchGroupBy:
+	"""
+	Wrapper around pandas groupby (not a subclass) for a pdBatch instance.
+
+	Most commonly used as an iterator factory to iterate over groupby'd values.
+
+	:param batch: Measurement batch to be grouped
+	:type batch: pdBatch
+	:param columns: Variables to be grouped by
+	:type columns: str or sequence of str
+
+	:param kwargs: Keyword arguments passed to the underlying pd.DataFrame.groupby
+	"""
+	def __init__(self, batch, columns, **kwargs):
+		"""
+		Initialize a BatchGroupBy object.
+		"""
+		self.batch = batch
+		self.columns = columns
+		self.groupby_kwargs = kwargs
+		## 
+		self.groupby = self.batch.df.groupby(self.columns, **self.groupby_kwargs)
+
+	def __iter__(self):
+		for values, group_df in self.groupby:
+			## Create new pdBatch object from DataFrame
+			group_batch = self.batch.batch_from_dfsub(group_df)
 			## Return values conforming to pd groupby style
 			yield values, group_batch
+
+	def __len__(self):
+		return len(self.groupby)
